@@ -109,14 +109,14 @@ const SearchField = ({
   };
 
   return (
-    <div className="mb-4">
+    <div className="mb-4 relative">
       <label
         htmlFor={id}
         className="block text-sm font-medium text-gray-700 mb-1"
       >
         {label}
       </label>
-      <div className="relative rounded-md shadow-sm">
+      <div className="rounded-md shadow-sm">
         <input
           ref={inputRef}
           type="text"
@@ -137,6 +137,7 @@ const SearchField = ({
       {showResults && (
         <div
           ref={resultsRef}
+          style={{ backgroundColor: 'white' }}
           className="absolute z-10 w-full bg-white mt-1 border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
         >
           {results.map((result, index) => (
