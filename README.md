@@ -5,4 +5,4 @@ In the CLI, run
 3. `npm install`
 4. `npm start`  
 
-Open web browser and navigate to http://localhost:3000 to view the app.
+Open web browser and navigate to http://localhost:3000.
