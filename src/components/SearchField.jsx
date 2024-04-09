@@ -6,8 +6,8 @@ import React, {
   useRef,
 } from "react";
 import { createPopper } from "@popperjs/core";
-import currencies from "./data/currencies.json";
-import MagnifyingGlassIcon from "./icons/magnifying-glass.svg";
+import currencies from "../data/currencies.json";
+import MagnifyingGlassIcon from "../icons/magnifying-glass.svg";
 
 const debounce = (func, delay) => {
   let inDebounce;
@@ -28,8 +28,7 @@ const SearchField = ({
   name,
   id,
   searchType,
-  renderLabel,
-  transformLabel,
+  renderResultItem,
 }) => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);

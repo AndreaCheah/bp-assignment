@@ -1,4 +1,5 @@
-import SearchField from "./SearchField";
+import SearchField from "./components/SearchField";
+import CustomResultItem from "./components/CustomResultItem";
 
 const App = () => {
   return (
@@ -11,6 +12,9 @@ const App = () => {
           id="async-search"
           name="async-search"
           searchType="async"
+          renderResultItem={(result, index) => (
+            <CustomResultItem key={index} result={result} />
+          )}
         />
         <SearchField
           label="Sync Search"
@@ -19,6 +23,9 @@ const App = () => {
           id="sync-search"
           name="sync-search"
           searchType="sync"
+          renderResultItem={(result, index) => (
+            <CustomResultItem key={index} result={result} />
+          )}
         />
       </div>
     </div>
