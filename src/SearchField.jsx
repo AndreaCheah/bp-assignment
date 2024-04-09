@@ -1,4 +1,12 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
+import { createPopper } from "@popperjs/core";
+import currencies from "./data/currencies.json";
 
 const debounce = (func, delay) => {
   let inDebounce;
@@ -9,6 +17,8 @@ const debounce = (func, delay) => {
     }, delay);
   };
 };
+
+const searchData = currencies;
 
 const SearchField = ({
   label,
@@ -21,23 +31,32 @@ const SearchField = ({
 }) => {
   const [input, setInput] = useState("");
   const [isSearching, setIsSearching] = useState(false);
+  const [results, setResults] = useState([]);
+  const [showResults, setShowResults] = useState(false);
+  const inputRef = useRef();
+  const resultsRef = useRef();
 
-  const handleSearch = useCallback((searchInput) => {
-    if (searchType === "async") {
+  const handleSearch = useCallback(
+    (searchInput) => {
       setIsSearching(true);
-      // Simulate an async API call with a delay
-      setTimeout(() => {
-        onSearch(searchInput);
-        setIsSearching(false);
-      }, 2000);
-    } else {
-      onSearch(searchInput);
-    }
-  }, [onSearch, searchType]);
+      setTimeout(
+        () => {
+          const filteredResults = filterResults(searchInput);
+          setResults(filteredResults);
+          setShowResults(true);
+          setIsSearching(false);
+        },
+        searchType === "async" ? 1000 : 0
+      ); // Simulated delay for async
+    },
+    [searchType]
+  );
 
-  const debouncedSearch = useMemo(() => debounce(handleSearch, 500), [handleSearch]);
+  const debouncedSearch = useMemo(
+    () => debounce(handleSearch, 500),
+    [handleSearch]
+  );
 
-  
   const handleInputChange = useCallback(
     (e) => {
       const newInput = e.target.value;
@@ -61,13 +80,45 @@ const SearchField = ({
     };
   }, [input, debouncedSearch, searchType]);
 
+  useEffect(() => {
+    if (showResults && resultsRef.current && inputRef.current) {
+      createPopper(inputRef.current, resultsRef.current, {
+        placement: "bottom-start",
+      });
+    }
+  }, [showResults, results]);
+
+  const filterResults = (input) => {
+    console.log("searchData is", searchData);
+    if (!input) return []; // If input is empty or undefined, return empty array.
+
+    if (searchType === "async") {
+      return searchData.filter(
+        (item) =>
+          item.country_code.toLowerCase().includes(input.toLowerCase()) ||
+          item.currency_name.toLowerCase().includes(input.toLowerCase()) ||
+          item.currency_code.toLowerCase().includes(input.toLowerCase())
+      );
+    } else {
+      return searchData
+        .filter((item) =>
+          item.currency_name.toLowerCase().includes(input.toLowerCase())
+        )
+        .map((item) => ({ currency_name: item.currency_name }));
+    }
+  };
+
   return (
     <div className="mb-4">
-      <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
+      <label
+        htmlFor={id}
+        className="block text-sm font-medium text-gray-700 mb-1"
+      >
         {label}
       </label>
       <div className="relative rounded-md shadow-sm">
         <input
+          ref={inputRef}
           type="text"
           name={name}
           id={id}
@@ -78,12 +129,25 @@ const SearchField = ({
         />
         {isSearching && searchType === "async" && (
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-            {/* Replace this with loading icon */}
             <div>Loading...</div>
           </div>
         )}
       </div>
       <p className="mt-1 text-sm text-gray-500">{description}</p>
+      {showResults && (
+        <div
+          ref={resultsRef}
+          className="absolute z-10 w-full bg-white mt-1 border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
+        >
+          {results.map((result, index) => (
+            <div key={index} className="p-2 hover:bg-gray-100 cursor-pointer">
+              {searchType === "async"
+                ? `${result.country_code} - ${result.currency_name} (${result.currency_code})`
+                : result.currency_name}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

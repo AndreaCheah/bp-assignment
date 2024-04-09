@@ -1,0 +1,20 @@
+[
+  {
+    "country_code": "US",
+    "currency_name": "US Dollar",
+    "currency_code": "USD"
+  },
+  { "country_code": "EU", "currency_name": "Euro", "currency_code": "EUR" },
+  { "country_code": "JP", "currency_name": "Japanese Yen", "currency_code": "JPY" },
+  {
+    "country_code": "GB",
+    "currency_name": "British Pound Sterling",
+    "currency_code": "GBP"
+  },
+  { "country_code": "AU", "currency_name": "Australian Dollar", "currency_code": "AUD" },
+  { "country_code": "CA", "currency_name": "Canadian Dollar", "currency_code": "CAD" },
+  { "country_code": "CH", "currency_name": "Swiss Franc", "currency_code": "CHF" },
+  { "country_code": "CN", "currency_name": "Chinese Yuan", "currency_code": "CNY" },
+  { "country_code": "SE", "currency_name": "Swedish Krona", "currency_code": "SEK" },
+  { "country_code": "NZ", "currency_name": "New Zealand Dollar", "currency_code": "NZD" }
+]
