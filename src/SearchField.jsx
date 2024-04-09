@@ -91,7 +91,6 @@ const SearchField = ({
   }, [showResults, results]);
 
   const filterResults = (input) => {
-    console.log("searchData is", searchData);
     if (!input) return []; // If input is empty or undefined, return empty array.
 
     if (searchType === "async") {
@@ -181,7 +180,7 @@ const SearchField = ({
           />
           {isLoading && searchType === "async" && (
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-              <div>Loading...</div>
+              <div className="spinner"></div>
             </div>
           )}
         </div>
