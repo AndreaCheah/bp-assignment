@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 const debounce = (func, delay) => {
   let inDebounce;
@@ -35,8 +35,9 @@ const SearchField = ({
     }
   }, [onSearch, searchType]);
 
-  const debouncedSearch = useCallback(debounce(handleSearch, 500), [handleSearch]);
+  const debouncedSearch = useMemo(() => debounce(handleSearch, 500), [handleSearch]);
 
+  
   const handleInputChange = useCallback(
     (e) => {
       const newInput = e.target.value;
