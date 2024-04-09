@@ -26,7 +26,7 @@ const SearchField = ({
   description,
   name,
   id,
-  searchType
+  searchType,
 }) => {
   const [input, setInput] = useState("");
   const [isSearching, setIsSearching] = useState(false);
@@ -92,11 +92,16 @@ const SearchField = ({
     if (!input) return []; // If input is empty or undefined, return empty array.
 
     if (searchType === "async") {
+      const pattern = input
+        .split("")
+        .map((char) => `${char.toLowerCase()}.*`)
+        .join("");
+      const regex = new RegExp(pattern);
       return searchData.filter(
         (item) =>
-          item.country_code.toLowerCase().includes(input.toLowerCase()) ||
-          item.currency_name.toLowerCase().includes(input.toLowerCase()) ||
-          item.currency_code.toLowerCase().includes(input.toLowerCase())
+          regex.test(item.country_code.toLowerCase()) ||
+          regex.test(item.currency_name.toLowerCase()) ||
+          regex.test(item.currency_code.toLowerCase())
       );
     } else {
       return searchData
