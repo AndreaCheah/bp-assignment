@@ -26,8 +26,7 @@ const SearchField = ({
   description,
   name,
   id,
-  searchType,
-  onSearch,
+  searchType
 }) => {
   const [input, setInput] = useState("");
   const [isSearching, setIsSearching] = useState(false);
