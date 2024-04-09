@@ -1,4 +1,4 @@
-# Steps for Opening the Web App
+# Frontend Assignment
 In the CLI, run
 1. `git clone https://github.com/AndreaCheah/bp-assignment.git`
 2. `cd bp-assignment`
