@@ -2,7 +2,7 @@
   "name": "beep",
   "version": "0.1.0",
   "private": false,
-  "homepage": "https://AndreaCheah.github.io/bp-assignment",
+  "homepage": "https://AndreaCheah.github.io/bp-assignment/public/",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@testing-library/jest-dom": "^5.17.0",

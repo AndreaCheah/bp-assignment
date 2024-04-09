@@ -28,6 +28,8 @@ const SearchField = ({
   name,
   id,
   searchType,
+  renderLabel,
+  transformLabel,
 }) => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
