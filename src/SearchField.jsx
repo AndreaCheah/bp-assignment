@@ -119,14 +119,8 @@ const SearchField = ({
         {label}
       </label>
       <div className="w-full">
-        {" "}
-        {/* Full width for the input container */}
         <div className="relative rounded-md shadow-sm">
-          {" "}
-          {/* Removed flex and items-center */}
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            {" "}
-            {/* Icon container */}
             <img
               src={MagnifyingGlassIcon}
               alt="Search"
