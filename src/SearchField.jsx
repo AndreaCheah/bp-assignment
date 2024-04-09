@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { createPopper } from "@popperjs/core";
 import currencies from "./data/currencies.json";
+import MagnifyingGlassIcon from './icons/magnifying-glass.svg';
 
 const debounce = (func, delay) => {
   let inDebounce;
@@ -113,14 +114,15 @@ const SearchField = ({
   };
 
   return (
-    <div className="mb-4 relative">
+    <div className="mb-4 relative flex items-center">
       <label
         htmlFor={id}
         className="block text-sm font-medium text-gray-700 mb-1"
       >
         {label}
       </label>
-      <div className="rounded-md shadow-sm">
+      <div className="flex items-center rounded-md shadow-sm">
+      <img src={MagnifyingGlassIcon} alt="Search" className="w-5 h-5 text-gray-500" />
         <input
           ref={inputRef}
           type="text"
@@ -141,7 +143,6 @@ const SearchField = ({
       {showResults && (
         <div
           ref={resultsRef}
-          style={{ backgroundColor: "white" }}
           className="absolute z-10 w-full bg-white mt-1 border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
         >
           {results.map((result, index) => (
