@@ -91,7 +91,7 @@ const SearchField = ({
   }, [showResults, results]);
 
   const filterResults = (input) => {
-    if (!input) return []; // If input is empty or undefined, return empty array.
+    if (!input) return [];
 
     if (searchType === "async") {
       const pattern = input
@@ -117,10 +117,16 @@ const SearchField = ({
   const handleKeyboardKey = useCallback(
     (event) => {
       if (event.key === "ArrowDown") {
-        setActiveIndex((prevIndex) => Math.min(prevIndex + 1, results.length - 1));
+        setActiveIndex((prevIndex) =>
+          Math.min(prevIndex + 1, results.length - 1)
+        );
       } else if (event.key === "ArrowUp") {
         setActiveIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-      } else if (event.key === "Enter" && activeIndex >= 0 && activeIndex < results.length) {
+      } else if (
+        event.key === "Enter" &&
+        activeIndex >= 0 &&
+        activeIndex < results.length
+      ) {
         const resultItem = results[activeIndex];
         handleSelect(resultItem.currency_code);
       } else if (event.key === "Escape") {
@@ -152,7 +158,7 @@ const SearchField = ({
       }
       return newSelected;
     });
-  }, []);  
+  }, []);
 
   return (
     <div className="mb-4 relative flex flex-col items-start w-full">
@@ -191,32 +197,36 @@ const SearchField = ({
           ref={resultsRef}
           className="absolute z-10 w-full bg-white mt-1 border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
         >
-          {results.map((result, index) => (
-            <div
-              key={index}
-              className={`flex items-center justify-between p-2 cursor-pointer ${
-                index === activeIndex ? "bg-gray-200" : "hover:bg-gray-100"
-              }`}
-              onMouseEnter={() => setActiveIndex(index)}
-              onMouseLeave={() => setActiveIndex(-1)}
-              onClick={() => handleSelect(result.currency_code)}
-            >
-              <span>
-                {searchType === "async"
-                  ? `${result.country_code} - ${result.currency_name} (${result.currency_code})`
-                  : result.currency_name}
-              </span>
-              <input
-                type="checkbox"
-                id={`checkbox-${index}`}
-                name="selectedCurrency"
-                value={result.currency_code}
-                checked={selectedCurrencies.has(result.currency_code)}
-                onChange={() => handleSelect(result.currency_code)}
-                className="ml-2"
-              />
-            </div>
-          ))}
+          {results.length > 0 ? (
+            results.map((result, index) => (
+              <div
+                key={index}
+                className={`flex items-center justify-between p-2 cursor-pointer ${
+                  index === activeIndex ? "bg-gray-200" : "hover:bg-gray-100"
+                }`}
+                onMouseEnter={() => setActiveIndex(index)}
+                onMouseLeave={() => setActiveIndex(-1)}
+                onClick={() => handleSelect(result.currency_code)}
+              >
+                <span>
+                  {searchType === "async"
+                    ? `${result.country_code} - ${result.currency_name} (${result.currency_code})`
+                    : result.currency_name}
+                </span>
+                <input
+                  type="checkbox"
+                  id={`checkbox-${index}`}
+                  name="selectedCurrency"
+                  value={result.currency_code}
+                  checked={selectedCurrencies.has(result.currency_code)}
+                  onChange={() => handleSelect(result.currency_code)}
+                  className="ml-2"
+                />
+              </div>
+            ))
+          ) : (
+            <div className="p-2 text-gray-500">No results were found</div>
+          )}
         </div>
       )}
     </div>
