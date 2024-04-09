@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/bp-assignment/static/css/main.dfe20a66.css",
+    "main.js": "/bp-assignment/static/js/main.f1631ae5.js",
+    "static/media/magnifying-glass.svg": "/bp-assignment/static/media/magnifying-glass.db288dfc1dddb3fd7d05d3af09a7075f.svg",
+    "index.html": "/bp-assignment/index.html",
+    "main.dfe20a66.css.map": "/bp-assignment/static/css/main.dfe20a66.css.map",
+    "main.f1631ae5.js.map": "/bp-assignment/static/js/main.f1631ae5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dfe20a66.css",
+    "static/js/main.f1631ae5.js"
+  ]
+}
