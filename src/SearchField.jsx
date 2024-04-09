@@ -30,7 +30,7 @@ const SearchField = ({
   searchType,
 }) => {
   const [input, setInput] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const inputRef = useRef();
@@ -40,13 +40,13 @@ const SearchField = ({
 
   const handleSearch = useCallback(
     (searchInput) => {
-      setIsSearching(true);
+      setIsLoading(true);
       setTimeout(
         () => {
           const filteredResults = filterResults(searchInput);
           setResults(filteredResults);
           setShowResults(true);
-          setIsSearching(false);
+          setIsLoading(false);
         },
         searchType === "async" ? 1000 : 0
       ); // Simulated delay for async
@@ -179,7 +179,7 @@ const SearchField = ({
             value={input}
             onChange={handleInputChange}
           />
-          {isSearching && searchType === "async" && (
+          {isLoading && searchType === "async" && (
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
               <div>Loading...</div>
             </div>
