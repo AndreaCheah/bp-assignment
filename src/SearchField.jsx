@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { createPopper } from "@popperjs/core";
 import currencies from "./data/currencies.json";
-import MagnifyingGlassIcon from './icons/magnifying-glass.svg';
+import MagnifyingGlassIcon from "./icons/magnifying-glass.svg";
 
 const debounce = (func, delay) => {
   let inDebounce;
@@ -114,32 +114,43 @@ const SearchField = ({
   };
 
   return (
-    <div className="mb-4 relative flex items-center">
-      <label
-        htmlFor={id}
-        className="block text-sm font-medium text-gray-700 mb-1"
-      >
+    <div className="mb-4 relative flex flex-col items-start w-full">
+      <label htmlFor={id} className="text-sm font-medium text-gray-700 mb-1">
         {label}
       </label>
-      <div className="flex items-center rounded-md shadow-sm">
-      <img src={MagnifyingGlassIcon} alt="Search" className="w-5 h-5 text-gray-500" />
-        <input
-          ref={inputRef}
-          type="text"
-          name={name}
-          id={id}
-          className="block w-full pl-2 pr-2 sm:text-sm border-gray-300 rounded-md mb-1"
-          placeholder={placeholder}
-          value={input}
-          onChange={handleInputChange}
-        />
-        {isSearching && searchType === "async" && (
-          <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-            <div>Loading...</div>
+      <div className="w-full">
+        {" "}
+        {/* Full width for the input container */}
+        <div className="relative rounded-md shadow-sm">
+          {" "}
+          {/* Removed flex and items-center */}
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            {" "}
+            {/* Icon container */}
+            <img
+              src={MagnifyingGlassIcon}
+              alt="Search"
+              className="w-5 h-5 text-gray-500"
+            />
           </div>
-        )}
+          <input
+            ref={inputRef}
+            type="text"
+            name={name}
+            id={id}
+            className="block w-full pl-10 pr-3 py-2 sm:text-sm border-gray-300 rounded-md" /* padding-left is adjusted to make space for the icon */
+            placeholder={placeholder}
+            value={input}
+            onChange={handleInputChange}
+          />
+          {isSearching && searchType === "async" && (
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+              <div>Loading...</div>
+            </div>
+          )}
+        </div>
+        <p className="mt-1 text-sm text-gray-500">{description}</p>
       </div>
-      <p className="mt-1 text-sm text-gray-500">{description}</p>
       {showResults && (
         <div
           ref={resultsRef}
